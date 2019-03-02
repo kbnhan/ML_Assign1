@@ -50,12 +50,12 @@ def h(d, w, row_index, feature_size):
 		return -1
 
 #Takes weight vector as argument
-def update(misclass):
-	x_initial = misclass[0:2] #x vector without x0 = 1
+def update(misclass, feature_size):
+	x_initial = misclass[0:feature_size] #x vector without x0 = 1
 	x_add_x0 = np.insert(x_initial, 0, 1) #add x0 = 1
 	x_vector = np.array([x_add_x0]) #create x row vector
 	x = x_vector.T #transpose
-	y = int(misclass[2:]) #correct classification value
+	y = int(misclass[feature_size:]) #correct classification value
 	return y * x
 
 #First group
@@ -90,7 +90,7 @@ while num_of_misclass != 0:
 	if num_of_misclass > 0:
 		choice = random.randint(0, num_of_misclass - 1) #pick random misclassification
 		misclass_vector = misclassified[choice]
-		w += update(misclass_vector) #update weight vector
+		w += update(misclass_vector, 2) #update weight vector
 
 #Print weight vector
 print("Weight Vector: ")
